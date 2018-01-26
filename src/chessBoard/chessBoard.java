@@ -15,92 +15,60 @@ import java.awt.GridLayout;  import java.awt.Container;
     
 public class chessBoard extends JPanel{
     
-    public cell[][] cellGrid = new cell[8][8];           
+    cell[][] cellGrid = new cell[8][8];           
     public chessBoard() {
-            
-           GridLayout grid = new GridLayout(8,8,0,0);
-           
-           this.setLayout(grid);
-           this.add(cellGrid[0][0] = new cell(new chessPiece(pieceType.rook, pieceColor.yellow)));
-           this.add(cellGrid[0][1] = new cell(new chessPiece(pieceType.bishop, pieceColor.yellow)));
-           this.add(cellGrid[0][2] = new cell(new chessPiece(pieceType.knight, pieceColor.yellow)));
-           this.add(cellGrid[0][3] = new cell(new chessPiece(pieceType.queen, pieceColor.yellow)));
-           this.add(cellGrid[0][4] = new cell(new chessPiece(pieceType.king, pieceColor.yellow)));
-           this.add(cellGrid[0][5] = new cell(new chessPiece(pieceType.knight, pieceColor.yellow)));
-           this.add(cellGrid[0][6] = new cell(new chessPiece(pieceType.bishop, pieceColor.yellow)));
-           this.add(cellGrid[0][7] = new cell(new chessPiece(pieceType.rook, pieceColor.yellow)));
-           
-           
-           this.add(cellGrid[1][0] = new cell(new chessPiece(pieceType.pawn, pieceColor.yellow)));
-           this.add(cellGrid[1][1] = new cell(new chessPiece(pieceType.pawn, pieceColor.yellow)));
-           this.add(cellGrid[1][2] = new cell(new chessPiece(pieceType.pawn, pieceColor.yellow)));
-           this.add(cellGrid[1][3] = new cell(new chessPiece(pieceType.pawn, pieceColor.yellow)));
-           this.add(cellGrid[1][4] = new cell(new chessPiece(pieceType.pawn, pieceColor.yellow)));
-           this.add(cellGrid[1][5] = new cell(new chessPiece(pieceType.pawn, pieceColor.yellow)));
-           this.add(cellGrid[1][6] = new cell(new chessPiece(pieceType.pawn, pieceColor.yellow)));
-           this.add(cellGrid[1][7] = new cell(new chessPiece(pieceType.pawn, pieceColor.yellow)));
-           
-           
-           this.add(cellGrid[2][0] = new cell());
-           this.add(cellGrid[2][1] = new cell());
-           this.add(cellGrid[2][2] = new cell());
-           this.add(cellGrid[2][3] = new cell());
-           this.add(cellGrid[2][4] = new cell());
-           this.add(cellGrid[2][5] = new cell());
-           this.add(cellGrid[2][6] = new cell());
-           this.add(cellGrid[2][7] = new cell());
-           
-           
-           this.add(cellGrid[3][0] = new cell());
-           this.add(cellGrid[3][1] = new cell());
-           this.add(cellGrid[3][2] = new cell());
-           this.add(cellGrid[3][3] = new cell());
-           this.add(cellGrid[3][4] = new cell());
-           this.add(cellGrid[3][5] = new cell());
-           this.add(cellGrid[3][6] = new cell());
-           this.add(cellGrid[3][7] = new cell());
-           
-           
-           this.add(cellGrid[4][0] = new cell());
-           this.add(cellGrid[4][1] = new cell());
-           this.add(cellGrid[4][2] = new cell());
-           this.add(cellGrid[4][3] = new cell());
-           this.add(cellGrid[4][4] = new cell());
-           this.add(cellGrid[4][5] = new cell());
-           this.add(cellGrid[4][6] = new cell());
-           this.add(cellGrid[4][7] = new cell());
-           
-           
-           this.add(cellGrid[5][0] = new cell());
-           this.add(cellGrid[5][1] = new cell());
-           this.add(cellGrid[5][2] = new cell());
-           this.add(cellGrid[5][3] = new cell());
-           this.add(cellGrid[5][4] = new cell());
-           this.add(cellGrid[5][5] = new cell());
-           this.add(cellGrid[5][6] = new cell());
-           this.add(cellGrid[5][7] = new cell());
-           
-           
-           this.add(cellGrid[6][0] = new cell(new chessPiece(pieceType.pawn, pieceColor.blue)));
-           this.add(cellGrid[6][1] = new cell(new chessPiece(pieceType.pawn, pieceColor.blue)));
-           this.add(cellGrid[6][2] = new cell(new chessPiece(pieceType.pawn, pieceColor.blue)));
-           this.add(cellGrid[6][3] = new cell(new chessPiece(pieceType.pawn, pieceColor.blue)));
-           this.add(cellGrid[6][4] = new cell(new chessPiece(pieceType.pawn, pieceColor.blue)));
-           this.add(cellGrid[6][5] = new cell(new chessPiece(pieceType.pawn, pieceColor.blue)));
-           this.add(cellGrid[6][6] = new cell(new chessPiece(pieceType.pawn, pieceColor.blue)));
-           this.add(cellGrid[6][7] = new cell(new chessPiece(pieceType.pawn, pieceColor.blue)));
-           
-           
-           this.add(cellGrid[7][0] = new cell(new chessPiece(pieceType.rook, pieceColor.blue)));
-           this.add(cellGrid[7][1] = new cell(new chessPiece(pieceType.bishop, pieceColor.blue)));
-           this.add(cellGrid[7][2] = new cell(new chessPiece(pieceType.knight, pieceColor.blue)));
-           this.add(cellGrid[7][3] = new cell(new chessPiece(pieceType.queen, pieceColor.blue)));
-           this.add(cellGrid[7][4] = new cell(new chessPiece(pieceType.king, pieceColor.blue)));
-           this.add(cellGrid[7][5] = new cell(new chessPiece(pieceType.knight, pieceColor.blue)));
-           this.add(cellGrid[7][6] = new cell(new chessPiece(pieceType.bishop, pieceColor.blue)));
-           this.add(cellGrid[7][7] = new cell(new chessPiece(pieceType.rook, pieceColor.blue)));
-           
-           this.setVisible(true);
-       }
+        GridLayout grid = new GridLayout(8,8,0,0);
+        this.setLayout(grid);
+        for (int i=0;i<8;i++){
+            for (int j=0;j<8;j++){
+                cellGrid[i][j] = new cell();
+                this.add(cellGrid[i][j]);
+            }
+        }
+        setInitialConfig();
+        this.setVisible(true);
+    }   
     
+    void setInitialConfig(){
+        
+        cellGrid[1][0].setPiece(new pawn(pieceColor.yellow));
+        cellGrid[1][1].setPiece(new pawn(pieceColor.yellow));
+        cellGrid[1][2].setPiece(new pawn(pieceColor.yellow));
+        cellGrid[1][3].setPiece(new pawn(pieceColor.yellow));
+        cellGrid[1][4].setPiece(new pawn(pieceColor.yellow));
+        cellGrid[1][5].setPiece(new pawn(pieceColor.yellow));
+        cellGrid[1][6].setPiece(new pawn(pieceColor.yellow));
+        cellGrid[1][7].setPiece(new pawn(pieceColor.yellow));
+        
+        
+        cellGrid[6][0].setPiece(new pawn(pieceColor.blue));
+        cellGrid[6][1].setPiece(new pawn(pieceColor.blue));
+        cellGrid[6][2].setPiece(new pawn(pieceColor.blue));
+        cellGrid[6][3].setPiece(new pawn(pieceColor.blue));
+        cellGrid[6][4].setPiece(new pawn(pieceColor.blue));
+        cellGrid[6][5].setPiece(new pawn(pieceColor.blue));
+        cellGrid[6][6].setPiece(new pawn(pieceColor.blue));
+        cellGrid[6][7].setPiece(new pawn(pieceColor.blue));
+        
+        
+        cellGrid[0][0].setPiece(new rook(pieceColor.yellow));
+        cellGrid[0][1].setPiece(new bishop(pieceColor.yellow));
+        cellGrid[0][2].setPiece(new knight(pieceColor.yellow));
+        cellGrid[0][3].setPiece(new queen(pieceColor.yellow));
+        cellGrid[0][4].setPiece(new king(pieceColor.yellow));
+        cellGrid[0][5].setPiece(new knight(pieceColor.yellow));
+        cellGrid[0][6].setPiece(new bishop(pieceColor.yellow));
+        cellGrid[0][7].setPiece(new rook(pieceColor.yellow));
+        
+        
+        cellGrid[7][0].setPiece(new rook(pieceColor.blue));
+        cellGrid[7][1].setPiece(new bishop(pieceColor.blue));
+        cellGrid[7][2].setPiece(new knight(pieceColor.blue));
+        cellGrid[7][3].setPiece(new queen(pieceColor.blue));
+        cellGrid[7][4].setPiece(new king(pieceColor.blue));
+        cellGrid[7][5].setPiece(new knight(pieceColor.blue));
+        cellGrid[7][6].setPiece(new bishop(pieceColor.blue));
+        cellGrid[7][7].setPiece(new rook(pieceColor.blue));
+        
+    }
 }

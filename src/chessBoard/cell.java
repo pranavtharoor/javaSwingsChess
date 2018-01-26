@@ -19,7 +19,6 @@ public class cell extends JButton{
     cellColor hoverCellColor;
     cellColor selectedCellColor;
     chessPiece currentPiece;
-    
     public
     cell(){
         super("");
@@ -30,21 +29,14 @@ public class cell extends JButton{
         this.setBorder(null);
         currentPiece = null;
         update();
+        
     }
     
-    cell(chessPiece initial){
-        super("");
-        this.setSize(200,200);
-        this.setPreferredSize(new Dimension(200,200));
-        this.setFocusable(false);
-        this.setBorderPainted(false);
-        this.setBorder(null);
-        
-        currentPiece = initial;
-        
+    void setPiece(chessPiece piece){
+        currentPiece=piece; 
         update();
-        
     }
+    
     void update(){
         if (currentPiece==null){
             this.setIcon(new chessCellIcon(cellColor.grey,pieceType.NULL,pieceColor.NULL));
@@ -53,4 +45,6 @@ public class cell extends JButton{
             this.setIcon(new chessCellIcon(currentPiece.baseCellColor, currentPiece.pieceT, currentPiece.pieceC));
         }
     }
+    
+    void onMouseHover(){}
 }
