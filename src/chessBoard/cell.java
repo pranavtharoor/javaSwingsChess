@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chessGame;
+package chessBoard;
 
 /**
  *
@@ -47,7 +47,7 @@ public class cell extends JButton{
     }
     void update(){
         if (currentPiece==null){
-            this.setIcon(new chessCellIcon(cellColor.green,pieceType.NULL,pieceColor.NULL));
+            this.setIcon(new chessCellIcon(cellColor.grey,pieceType.NULL,pieceColor.NULL));
         }
         else{
             this.setIcon(new chessCellIcon(currentPiece.baseCellColor, currentPiece.pieceT, currentPiece.pieceC));

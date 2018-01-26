@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package chess;
-import chessGame.*;
+import chessBoard.chessBoard;
+import javax.swing.JFrame;
+
 
 /**
  *
@@ -17,9 +19,12 @@ public class Chess {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
-        chessGame a = new chessGame();
-        a.start();
+        JFrame window = new JFrame("Chess");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.add(new chessBoard());
+        window.pack();
+        window.setVisible(true);
     }
     
 }

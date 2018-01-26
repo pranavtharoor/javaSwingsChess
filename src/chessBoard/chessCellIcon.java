@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chessGame;
+package chessBoard;
 
 import java.awt.Component;
 import java.awt.Graphics;
@@ -14,29 +14,7 @@ import javax.swing.Icon;
  *
  * @author ashir basu
  */
-enum cellColor{
-    white,
-    grey,
-    red,
-    green,
-    blue,
-    yellow,
-    NULL
-}
-enum pieceType{
-    king,
-    queen,
-    rook,
-    bishop,
-    knight,
-    pawn,
-    NULL
-}
-enum pieceColor{
-    blue,
-    yellow,
-    NULL
-}
+
 public class chessCellIcon implements Icon{
     private ImageIcon cell;
     private ImageIcon piece;
