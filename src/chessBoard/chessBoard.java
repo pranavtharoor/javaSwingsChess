@@ -19,7 +19,7 @@ public class chessBoard extends JPanel{
     
     private int cellSize;
     private cell[][] cellGrid = new cell[8][8]; 
-    private pieceColor currentTurn = pieceColor.yellow;
+    private pieceColor currentTurn = pieceColor.blue;
     private cell selectedCell;
     
     public chessBoard(int cellSize) {
@@ -42,45 +42,41 @@ public class chessBoard extends JPanel{
     
     final void setButtonConfig(cell current){
         current.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseEntered(java.awt.event.MouseEvent evt) {
-                
-                        if (current.currentPiece==null) {
-                            current.setHoverColor();
-                        } else if (current.currentPiece.pieceC == currentTurn) {
-                            if (setMovableUnselected(current)!=0) {
-                                current.setHoverColor();
-                            } else {
-                                current.setHoverInvalidColor();
-                            }
-                        } else {
-                            current.setHoverInvalidColor();
-                        }
-                        
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                if (current.currentPiece==null) {
+                    current.setHoverColor();
+                } else if (current.currentPiece.pieceC == currentTurn) {
+                    if (setMovableUnselected(current)!=0) {
+                        current.setHoverColor();
+                    } else {
+                        current.setHoverInvalidColor();
                     }
-        
-                    @Override
-                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                } else {
+                    current.setHoverInvalidColor();
+                }
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                current.setBaseColor();
+                if (current.currentPiece!=null){
+                    if (current.currentPiece.pieceC == currentTurn) {
+                        unsetMovableUnselected(current);
+                    }
+                }
+            }
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                if (current.currentPiece!=null){
+                    if (current.currentPiece.pieceC != currentTurn){
                         current.setBaseColor();
-                        if (current.currentPiece!=null){
-                            if (current.currentPiece.pieceC == currentTurn) {
-                                unsetMovableUnselected(current);
-                            }
-                        }
+                        JOptionPane.showMessageDialog(null,"It is "+currentTurn.name()+"'s turn");
+                        return;
                     }
-            
-                    @Override
-                    public void mouseClicked(java.awt.event.MouseEvent evt){
-                        if (current.currentPiece!=null){
-                            if (current.currentPiece.pieceC != currentTurn){
-                                current.setBaseColor();
-                                JOptionPane.showMessageDialog(null,"It is "+currentTurn.name()+"'s turn");
-                                return;
-                            }
-                        }
-                        moveHandler(current);
-                    }
-                });
+                }
+                moveHandler(current);
+            }
+        });
     }
     
     final void setInitialConfig(){
@@ -150,8 +146,9 @@ public class chessBoard extends JPanel{
     
     final void unsetMovableUnselected(cell current){
         ArrayList<cell> moves = current.attacking;
-        if (moves==null)
+        if (moves==null) {
             return;
+        }
         for (int i=0;i<moves.size();i++){
             moves.get(i).setBaseColor();
         }
@@ -223,7 +220,7 @@ public class chessBoard extends JPanel{
                 } else if (currentMove.type == moveType.onlyCapture && cellGrid[y][x].currentPiece!=null) {
                     if (cellGrid[y][x].currentPiece==null) {
                         moves.add(cellGrid[y][x]);
-                    } else{
+                    } else {
                         if(cellGrid[y][x].currentPiece.pieceC!=currentTurn) {
                             moves.add(cellGrid[y][x]);
                         }
@@ -232,8 +229,5 @@ public class chessBoard extends JPanel{
             }
         }
         return moves;
-    }
-    
-    
-    
+    }  
 }

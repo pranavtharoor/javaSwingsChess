@@ -35,7 +35,6 @@ public class cell extends JButton{
         this.setFocusable(false);
         this.setBorderPainted(false);
         this.setBorder(null);
-        this.setBackground(Color.black);
         currentPiece = null;
         this.posX=posX;
         this.posY=posY;
@@ -43,12 +42,12 @@ public class cell extends JButton{
         
     }
     
-    public void setPiece(chessPiece piece){
+    final void setPiece(chessPiece piece){
         currentPiece=piece; 
         setBaseColor();
     }
     
-    public final void setBaseColor(){
+    final void setBaseColor(){
         if (currentPiece==null){
             this.setIcon(new chessCellIcon(baseCellColor,pieceType.NULL,pieceColor.NULL));       
         }
@@ -56,7 +55,7 @@ public class cell extends JButton{
             this.setIcon(new chessCellIcon(currentPiece.baseCellColor, currentPiece.pieceT, currentPiece.pieceC));
         }
     }
-    public final void setHoverColor(){
+    final void setHoverColor(){
         if (currentPiece==null){
             this.setIcon(new chessCellIcon(hoverCellColor,pieceType.NULL,pieceColor.NULL));       
         }
@@ -64,11 +63,11 @@ public class cell extends JButton{
             this.setIcon(new chessCellIcon(currentPiece.hoverCellColor, currentPiece.pieceT, currentPiece.pieceC));
         }
     }
-    public final void setHoverInvalidColor(){
+    final void setHoverInvalidColor(){
         this.setIcon(new chessCellIcon(currentPiece.hoverInvalidCellColor, currentPiece.pieceT, currentPiece.pieceC));
     }
     
-    public final void setMovableUnselectedColor(){
+    final void setMovableUnselectedColor(){
         if (currentPiece==null){
             this.setIcon(new chessCellIcon(movableUnselectedCellColor,pieceType.NULL,pieceColor.NULL));       
         }
@@ -77,7 +76,7 @@ public class cell extends JButton{
         }
     }
     
-    public final void setMovableSelectedColor(){
+    final void setMovableSelectedColor(){
         if (currentPiece==null){
             this.setIcon(new chessCellIcon(movableSelectedCellColor,pieceType.NULL,pieceColor.NULL));       
         }
@@ -86,7 +85,7 @@ public class cell extends JButton{
         }
     }
     
-    public void setAttacking(ArrayList<cell> list){
+    void setAttacking(ArrayList<cell> list){
         if (attacking!=null) {
             for (cell i: attacking){
                 i.attackedBy.remove(this);

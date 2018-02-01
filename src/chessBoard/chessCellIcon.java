@@ -5,8 +5,10 @@
  */
 package chessBoard;
 
+import java.awt.AlphaComposite;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.Icon;
@@ -45,9 +47,10 @@ public class chessCellIcon implements Icon{
     }
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
-        
+
         cell.paintIcon(c, g, x, y);
         if (pieceSet)
             piece.paintIcon(c, g, x, y);
+        
     }
 }
