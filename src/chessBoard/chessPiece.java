@@ -15,12 +15,13 @@ abstract class chessPiece {
     pieceType pieceT;
     cellColor baseCellColor;
     cellColor hoverCellColor;
+    cellColor hoverInvalidCellColor;
     cellColor selectedCellColor;
     pieceMove[] movesAllowed;
     int numberMoves;
     
     abstract void setMoves();
-    chessPiece(pieceColor pieceC){
+    chessPiece(pieceColor pieceC, int numberMoves){
         this.pieceC=pieceC;
         if (pieceC.name().equals("blue")){
             baseCellColor = cellColor.blue;
@@ -29,18 +30,19 @@ abstract class chessPiece {
             baseCellColor = cellColor.yellow;
         }
         
-        hoverCellColor = cellColor.white;
+        hoverCellColor = cellColor.green;
+        hoverInvalidCellColor=cellColor.red;
         selectedCellColor = cellColor.red;
-        movesAllowed = new pieceMove[10];
+        this.numberMoves = numberMoves;
+        movesAllowed = new pieceMove[numberMoves];
         setMoves();
     }
 }
 
 class pawn extends chessPiece{
     pawn (pieceColor pieceC){
-        super(pieceC);
+        super(pieceC,3);
         pieceT=pieceType.pawn;
-        numberMoves=3;
     }
     
     @Override
@@ -53,9 +55,8 @@ class pawn extends chessPiece{
 
 class rook extends chessPiece{
     rook (pieceColor pieceC){
-        super(pieceC);
+        super(pieceC,4);
         pieceT=pieceType.rook;
-        numberMoves=4;
     }
     
     @Override
@@ -68,9 +69,8 @@ class rook extends chessPiece{
 }
 class bishop extends chessPiece{
     bishop (pieceColor pieceC){
-        super(pieceC);
+        super(pieceC,4);
         pieceT=pieceType.bishop;
-        numberMoves=4;
     }
     
     @Override
@@ -83,9 +83,8 @@ class bishop extends chessPiece{
 }
 class knight extends chessPiece{
     knight (pieceColor pieceC){
-        super(pieceC);
+        super(pieceC,8);
         pieceT=pieceType.knight;
-        numberMoves=8;
     }
     
     @Override
@@ -103,9 +102,8 @@ class knight extends chessPiece{
 
 class queen extends chessPiece{
     queen (pieceColor pieceC){
-        super(pieceC);
+        super(pieceC,8);
         pieceT=pieceType.queen;
-        numberMoves=8;
     }
     
     @Override
@@ -124,7 +122,7 @@ class queen extends chessPiece{
 
 class king extends chessPiece{
     king (pieceColor pieceC){
-        super(pieceC);
+        super(pieceC,8);
         pieceT=pieceType.king;
         numberMoves=8;
     }

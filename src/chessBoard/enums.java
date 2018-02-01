@@ -32,6 +32,7 @@ enum moveType{
 }
 
 class pieceMove{
+    public
     int x;
     int y;
     moveType type;

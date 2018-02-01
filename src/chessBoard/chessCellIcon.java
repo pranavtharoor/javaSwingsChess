@@ -21,12 +21,12 @@ public class chessCellIcon implements Icon{
     private Boolean pieceSet = false;
     chessCellIcon(cellColor cellC, pieceType pieceT, pieceColor pieceC){
         String cellIcon = "/tile_" + cellC.name()+".png";
-        cell = new ImageIcon(new ImageIcon(getClass().getResource(cellIcon)).getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
+        cell = new ImageIcon(new ImageIcon(getClass().getResource(cellIcon)).getImage().getScaledInstance(global.size, global.size, java.awt.Image.SCALE_SMOOTH));
         
         if (!pieceT.name().equals("NULL")){
             pieceSet=true;
             String pieceIcon = "/"+pieceT.name()+"_"+pieceC.toString()+".png";
-            piece = new ImageIcon(new ImageIcon(getClass().getResource(pieceIcon)).getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
+            piece = new ImageIcon(new ImageIcon(getClass().getResource(pieceIcon)).getImage().getScaledInstance(global.size, global.size, java.awt.Image.SCALE_SMOOTH));
         }
     }
     @Override
