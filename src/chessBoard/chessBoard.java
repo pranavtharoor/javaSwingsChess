@@ -167,6 +167,7 @@ public class chessBoard extends JPanel{
         }
         for (int i=0;i<moves.size();i++){
             moves.get(i).setBaseColor();
+            moves.get(i).unsetPlaceable();
         }
     }
     
@@ -178,6 +179,7 @@ public class chessBoard extends JPanel{
         }
         for (int i=0;i<moves.size();i++){
             moves.get(i).setMovableSelectedColor();
+            moves.get(i).setPlaceable();
         }
         current.setMovableUnselectedColor();
         return moves.size();
@@ -191,7 +193,7 @@ public class chessBoard extends JPanel{
                 pieceSelected=false;
                 selectedCell=null;
             }
-            else{
+            else if(current.getPlaceable()){
                 current.currentPiece = selectedCell.currentPiece;
                 
                 unsetMovable(selectedCell);
