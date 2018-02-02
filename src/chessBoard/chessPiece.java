@@ -17,6 +17,7 @@ abstract class chessPiece {
     cellColor hoverCellColor;
     cellColor hoverInvalidCellColor;
     cellColor selectedCellColor;
+    cellColor movableSelectedCellColor;
     pieceMove[] movesAllowed;
     int numberMoves;
     
@@ -32,7 +33,7 @@ abstract class chessPiece {
         
         hoverCellColor = cellColor.green;
         hoverInvalidCellColor=cellColor.red;
-        selectedCellColor = cellColor.red;
+        movableSelectedCellColor = cellColor.red;
         this.numberMoves = numberMoves;
         movesAllowed = new pieceMove[numberMoves];
         setMoves();

@@ -81,7 +81,7 @@ public class cell extends JButton{
             this.setIcon(new chessCellIcon(movableSelectedCellColor,pieceType.NULL,pieceColor.NULL));       
         }
         else{
-            this.setIcon(new chessCellIcon(movableSelectedCellColor, currentPiece.pieceT, currentPiece.pieceC));
+            this.setIcon(new chessCellIcon(currentPiece.movableSelectedCellColor, currentPiece.pieceT, currentPiece.pieceC));
         }
     }
     
