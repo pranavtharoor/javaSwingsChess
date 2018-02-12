@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 public class cell extends JButton{
     boolean mouseOver=false;
+    boolean placeable = false;
     
     private
     cellColor baseCellColor = cellColor.grey;
@@ -97,5 +98,17 @@ public class cell extends JButton{
                 i.attackedBy.add(this);
             }
         }
+    }
+    
+    final void setPlaceable() {
+        this.placeable = true;
+    }
+    
+    final void unsetPlaceable() {
+        this.placeable = false;
+    }
+    
+    final boolean getPlaceable() {
+        return this.placeable;
     }
 }

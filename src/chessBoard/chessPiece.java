@@ -5,6 +5,8 @@
  */
 package chessBoard;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ashir basu
@@ -18,11 +20,14 @@ abstract class chessPiece {
     cellColor hoverInvalidCellColor;
     cellColor selectedCellColor;
     cellColor movableSelectedCellColor;
-    pieceMove[] movesAllowed;
-    int numberMoves;
+    ArrayList<pieceMove> movesAllowed = new ArrayList<>();
+    ArrayList<specialAction> specialMoves = new ArrayList<>();
+    
+    cell currentCell;
     
     abstract void setMoves();
-    chessPiece(pieceColor pieceC, int numberMoves){
+    void onMove(){};
+    chessPiece(pieceColor pieceC, cell cell){
         this.pieceC=pieceC;
         if (pieceC.name().equals("blue")){
             baseCellColor = cellColor.blue;
@@ -34,110 +39,143 @@ abstract class chessPiece {
         hoverCellColor = cellColor.green;
         hoverInvalidCellColor=cellColor.red;
         movableSelectedCellColor = cellColor.red;
-        this.numberMoves = numberMoves;
-        movesAllowed = new pieceMove[numberMoves];
+        
+        currentCell = cell;
+        
         setMoves();
+    }
+    
+    void setCell(cell cell){
+        currentCell = cell;
     }
 }
 
 class pawn extends chessPiece{
-    pawn (pieceColor pieceC){
-        super(pieceC,3);
+    boolean hasMoved = false;
+    pawn (pieceColor pieceC, cell cell){
+        super(pieceC, cell);
         pieceT=pieceType.pawn;
     }
     
     @Override
     void setMoves(){
-        movesAllowed[0] = new pieceMove(0,1,moveType.cannotCapture);
-        movesAllowed[1] = new pieceMove(1,1,moveType.onlyCapture);
-        movesAllowed[2] = new pieceMove(-1,1,moveType.onlyCapture);
+        movesAllowed.add(new pieceMove(0,1,moveType.cannotCapture));
+        movesAllowed.add(new pieceMove(1,1,moveType.onlyCapture));
+        movesAllowed.add(new pieceMove(-1,1,moveType.onlyCapture));
+        specialMoves.add(new pawnDouble(this));
+    }
+    void onMove(){
+        hasMoved=true;
     }
 }
 
 class rook extends chessPiece{
-    rook (pieceColor pieceC){
-        super(pieceC,4);
+    rook (pieceColor pieceC, cell cell){
+        super(pieceC, cell);
         pieceT=pieceType.rook;
     }
     
     @Override
     void setMoves(){
-        movesAllowed[0] = new pieceMove(0,1,moveType.recursive);
-        movesAllowed[1] = new pieceMove(0,-1,moveType.recursive);
-        movesAllowed[2] = new pieceMove(1,0,moveType.recursive);
-        movesAllowed[3] = new pieceMove(-1,0,moveType.recursive);
+        movesAllowed.add(new pieceMove(0,1,moveType.recursive));
+        movesAllowed.add(new pieceMove(0,-1,moveType.recursive));
+        movesAllowed.add(new pieceMove(1,0,moveType.recursive));
+        movesAllowed.add(new pieceMove(-1,0,moveType.recursive));
     }
 }
 class bishop extends chessPiece{
-    bishop (pieceColor pieceC){
-        super(pieceC,4);
+    bishop (pieceColor pieceC, cell cell){
+        super(pieceC, cell);
         pieceT=pieceType.bishop;
     }
     
     @Override
     void setMoves(){
-        movesAllowed[0] = new pieceMove(1,1,moveType.recursive);
-        movesAllowed[1] = new pieceMove(1,-1,moveType.recursive);
-        movesAllowed[2] = new pieceMove(-1,1,moveType.recursive);
-        movesAllowed[3] = new pieceMove(-1,-1,moveType.recursive);
+        movesAllowed.add(new pieceMove(1,1,moveType.recursive));
+        movesAllowed.add(new pieceMove(1,-1,moveType.recursive));
+        movesAllowed.add(new pieceMove(-1,1,moveType.recursive));
+        movesAllowed.add(new pieceMove(-1,-1,moveType.recursive));
     }
 }
 class knight extends chessPiece{
-    knight (pieceColor pieceC){
-        super(pieceC,8);
+    knight (pieceColor pieceC, cell cell){
+        super(pieceC, cell);
         pieceT=pieceType.knight;
     }
     
     @Override
     void setMoves(){
-        movesAllowed[0] = new pieceMove(1,2,moveType.single);
-        movesAllowed[1] = new pieceMove(-1,2,moveType.single);
-        movesAllowed[2] = new pieceMove(2,1,moveType.single);
-        movesAllowed[3] = new pieceMove(2,-1,moveType.single);
-        movesAllowed[4] = new pieceMove(-2,1,moveType.single);
-        movesAllowed[5] = new pieceMove(-2,-1,moveType.single);
-        movesAllowed[6] = new pieceMove(1,-2,moveType.single);
-        movesAllowed[7] = new pieceMove(-1,-2,moveType.single);
+        movesAllowed.add(new pieceMove(1,2,moveType.single));
+        movesAllowed.add(new pieceMove(-1,2,moveType.single));
+        movesAllowed.add(new pieceMove(2,1,moveType.single));
+        movesAllowed.add(new pieceMove(2,-1,moveType.single));
+        movesAllowed.add(new pieceMove(-2,1,moveType.single));
+        movesAllowed.add(new pieceMove(-2,-1,moveType.single));
+        movesAllowed.add(new pieceMove(1,-2,moveType.single));
+        movesAllowed.add(new pieceMove(-1,-2,moveType.single));
     }
 }
 
 class queen extends chessPiece{
-    queen (pieceColor pieceC){
-        super(pieceC,8);
+    queen (pieceColor pieceC, cell cell){
+        super(pieceC, cell);
         pieceT=pieceType.queen;
     }
     
     @Override
     void setMoves(){
-        movesAllowed[0] = new pieceMove(0,1,moveType.recursive);
-        movesAllowed[1] = new pieceMove(0,-1,moveType.recursive);
-        movesAllowed[2] = new pieceMove(1,0,moveType.recursive);
-        movesAllowed[3] = new pieceMove(-1,0,moveType.recursive);
-        movesAllowed[4] = new pieceMove(1,1,moveType.recursive);
-        movesAllowed[5] = new pieceMove(1,-1,moveType.recursive);
-        movesAllowed[6] = new pieceMove(-1,1,moveType.recursive);
-        movesAllowed[7] = new pieceMove(-1,-1,moveType.recursive);
+        movesAllowed.add(new pieceMove(0,1,moveType.recursive));
+        movesAllowed.add(new pieceMove(0,-1,moveType.recursive));
+        movesAllowed.add(new pieceMove(1,0,moveType.recursive));
+        movesAllowed.add(new pieceMove(-1,0,moveType.recursive));
+        movesAllowed.add(new pieceMove(1,1,moveType.recursive));
+        movesAllowed.add(new pieceMove(1,-1,moveType.recursive));
+        movesAllowed.add(new pieceMove(-1,1,moveType.recursive));
+        movesAllowed.add(new pieceMove(-1,-1,moveType.recursive));
     }
 }
 
 
 class king extends chessPiece{
-    king (pieceColor pieceC){
-        super(pieceC,8);
+    king (pieceColor pieceC, cell cell){
+        super(pieceC, cell);
         pieceT=pieceType.king;
-        numberMoves=8;
     }
     
     @Override
     void setMoves(){
-        movesAllowed[0] = new pieceMove(0,1,moveType.single);
-        movesAllowed[1] = new pieceMove(0,-1,moveType.single);
-        movesAllowed[2] = new pieceMove(1,0,moveType.single);
-        movesAllowed[3] = new pieceMove(-1,0,moveType.single);
-        movesAllowed[4] = new pieceMove(1,1,moveType.single);
-        movesAllowed[5] = new pieceMove(1,-1,moveType.single);
-        movesAllowed[6] = new pieceMove(-1,1,moveType.single);
-        movesAllowed[7] = new pieceMove(-1,-1,moveType.single);
+        movesAllowed.add(new pieceMove(0,1,moveType.single));
+        movesAllowed.add(new pieceMove(0,-1,moveType.single));
+        movesAllowed.add(new pieceMove(1,0,moveType.single));
+        movesAllowed.add(new pieceMove(-1,0,moveType.single));
+        movesAllowed.add(new pieceMove(1,1,moveType.single));
+        movesAllowed.add(new pieceMove(1,-1,moveType.single));
+        movesAllowed.add(new pieceMove(-1,1,moveType.single));
+        movesAllowed.add(new pieceMove(-1,-1,moveType.single));
     }
+}
+
+class pawnDouble extends specialAction{
+    pawn current;
+    pawnDouble(pawn curr){
+        super(0,2,moveType.cannotCapture);
+        current=curr;
+    }
+    boolean validateAction(){
+        if (current.pieceC.toString() == "blue"){
+            if (global.cellGrid[current.currentCell.posY - 1][current.currentCell.posX].currentPiece==null && !current.hasMoved)
+                return true;
+            else
+                return false;
+        }
+        else{
+            if (global.cellGrid[current.currentCell.posY + 1][current.currentCell.posX].currentPiece==null && !current.hasMoved)
+                return true;
+            else
+                return false;
+        }
+    }
+    @Override
+    void postClick(){}   
 }
 

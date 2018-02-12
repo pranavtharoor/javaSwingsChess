@@ -43,7 +43,10 @@ class pieceMove{
     }
 }
 
-abstract class specialAction{
-    abstract void validateAction();
-    abstract void takeAction();
+abstract class specialAction extends pieceMove{
+    specialAction(int x, int y, moveType type){
+        super(x, y, type);
+    }
+    abstract boolean validateAction();
+    abstract void postClick();
 }
