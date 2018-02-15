@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chessBoard;
+package chess;
 
 import java.util.ArrayList;
 
@@ -45,6 +45,18 @@ abstract class chessPiece {
         setMoves();
     }
     
+    public chessPiece(chessPiece c) {
+        this.pieceC = c.pieceC;
+        this.pieceT = c.pieceT;
+        this.baseCellColor = c.baseCellColor;
+        this.hoverCellColor = c.hoverCellColor;
+        this.hoverInvalidCellColor = c.hoverInvalidCellColor;
+        this.selectedCellColor = c.selectedCellColor;
+        this.movableSelectedCellColor = c.movableSelectedCellColor;
+        this.movesAllowed = new ArrayList<pieceMove>(c.movesAllowed);
+        this.specialMoves = new ArrayList<specialAction>(c.specialMoves);
+    }
+    
     void setCell(cell cell){
         currentCell = cell;
     }
@@ -55,6 +67,10 @@ class pawn extends chessPiece{
     pawn (pieceColor pieceC, cell cell){
         super(pieceC, cell);
         pieceT=pieceType.pawn;
+    }
+    
+    public pawn(chessPiece c) {
+        super(c);
     }
     
     @Override
@@ -74,6 +90,10 @@ class rook extends chessPiece{
         super(pieceC, cell);
         pieceT=pieceType.rook;
     }
+
+    public rook(chessPiece c) {
+        super(c);
+    }
     
     @Override
     void setMoves(){
@@ -89,6 +109,10 @@ class bishop extends chessPiece{
         pieceT=pieceType.bishop;
     }
     
+    public bishop(chessPiece c) {
+        super(c);
+    }
+    
     @Override
     void setMoves(){
         movesAllowed.add(new pieceMove(1,1,moveType.recursive));
@@ -101,6 +125,10 @@ class knight extends chessPiece{
     knight (pieceColor pieceC, cell cell){
         super(pieceC, cell);
         pieceT=pieceType.knight;
+    }
+    
+    public knight(chessPiece c) {
+        super(c);
     }
     
     @Override
@@ -122,6 +150,10 @@ class queen extends chessPiece{
         pieceT=pieceType.queen;
     }
     
+    public queen(chessPiece c) {
+        super(c);
+    }
+    
     @Override
     void setMoves(){
         movesAllowed.add(new pieceMove(0,1,moveType.recursive));
@@ -140,6 +172,10 @@ class king extends chessPiece{
     king (pieceColor pieceC, cell cell){
         super(pieceC, cell);
         pieceT=pieceType.king;
+    }
+    
+    public king(chessPiece c) {
+        super(c);
     }
     
     @Override
