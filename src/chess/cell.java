@@ -15,7 +15,6 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JButton;
 public class cell extends JButton{
-    double aggressiveness =0.75;
     boolean mouseOver=false;
     boolean placeable = false;
     
@@ -177,10 +176,10 @@ public class cell extends JButton{
                     value += 90 + (this.currentPiece.pieceC == pieceColor.blue ? QueenTable[posX * 8 + posY] : QueenTable[63 - posX * 8 - posY]);
                     break;
                 case king:
-                    value += 9000 + (this.currentPiece.pieceC == pieceColor.blue ? KingTable[posX * 8 + posY] : KingTable[63 - posX * 8 - posY]);
+                    value += 900 + (this.currentPiece.pieceC == pieceColor.blue ? KingTable[posX * 8 + posY] : KingTable[63 - posX * 8 - posY]);
                     break;
             }
-        return this.currentPiece == null ? 0 : this.currentPiece.pieceC == pieceColor.blue ? (1-aggressiveness) * value : aggressiveness * -value; 
+        return this.currentPiece == null ? 0 : this.currentPiece.pieceC == pieceColor.blue ? value : -value; 
 
     }
 

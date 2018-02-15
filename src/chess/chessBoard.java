@@ -170,7 +170,7 @@ public class chessBoard extends JPanel{
             }
             else if(current.getPlaceable()){
                 
-				specialAction action = wasSpecialAction(current, selectedCell);
+		specialAction action = wasSpecialAction(current, selectedCell);
                 current.currentPiece = selectedCell.currentPiece;
                 
                 unsetMovable(selectedCell);
@@ -237,18 +237,18 @@ public class chessBoard extends JPanel{
                 if(game[i][j].currentPiece != null && game[i][j].currentPiece.pieceC == currentTurn && game[i][j].attacking != null) {
                     for(cell attack: game[i][j].attacking) {
                         if(attack.currentPiece == null || (attack.currentPiece != null && attack.currentPiece.pieceC != currentTurn)) {
-                            System.out.println();
-                            System.out.println(i + " " + j + "..." + attack.posY  +  " " + attack.posX + "///////////////////////////////" + game[i][j].currentPiece.pieceT);
+//                            System.out.println();
+//                            System.out.println(i + " " + j + "..." + attack.posY  +  " " + attack.posX + "///////////////////////////////" + game[i][j].currentPiece.pieceT);
                             cell tempCell = new cell(game[attack.posY][attack.posX]);
                             cell tempCellStart = new cell(game[i][j]);
                             game[attack.posY][attack.posX].currentPiece = game[i][j].currentPiece;
                             game[i][j].currentPiece = null;
-                            dispBoard(game);
+//                            dispBoard(game);
                             double value = minimax(depth - 1, game, -10000, 10000, !isMaximisingPlayer, currentTurn);
                             game[i][j] = tempCellStart;
                             game[attack.posY][attack.posX] = tempCell;
 //                            System.out.println(value);
-                            dispBoard(game);
+//                            dispBoard(game);
                             if(value >= bestMove) {
                                 bestMove = value;
                                 bestStartX = i;
@@ -257,7 +257,7 @@ public class chessBoard extends JPanel{
                                 bestEndY = attack.posX;
                             }
                         }
-                        System.out.println();
+//                        System.out.println();
                                 System.out.println(g);
 //                                System.out.println();
 g = 0.0;
@@ -301,14 +301,18 @@ g = 0.0;
                                 cell tempCellStart = new cell(game[i][j]);
                                 game[attack.posY][attack.posX].currentPiece = game[i][j].currentPiece;
                                 game[i][j].currentPiece = null;
+//                                chessPlay.calculateAttacks(game, currentTurn);
                                 double tempVal = minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer, currentTurn);
 //                                System.out.println(i + " " + j + "..." + bestMove + " "  + depth + "..." + attack.posY  +  " " + attack.posX);
 //                                System.out.println("\t" + tempVal + " " + game[attack.posY][attack.posX].currentPiece.pieceT);
-//                                dispBoard(game);
+                                if(depth == 1)
+                                    System.out.println("\t" + tempVal);
+//                                    dispBoard(game);
                                 if(tempVal > bestMove)
                                     bestMove = tempVal;
                                 game[i][j] = tempCellStart;
                                 game[attack.posY][attack.posX] = tempCell;
+                                chessPlay.calculateAttacks(game, currentTurn);
                                 alpha = Math.max(alpha, bestMove);
 //                                dispBoard(game);
                                 if(beta <= alpha)
@@ -329,14 +333,19 @@ g = 0.0;
                                 cell tempCellStart = new cell(game[i][j]);
                                 game[attack.posY][attack.posX].currentPiece = game[i][j].currentPiece;
                                 game[i][j].currentPiece = null;
+//                                chessPlay.calculateAttacks(game, currentTurn);
                                 double tempVal = minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer, currentTurn);
-                                System.out.println("\t" + tempVal + " " + game[attack.posY][attack.posX].currentPiece.pieceT);
+//                                System.out.println("\t" + tempVal + " " + game[attack.posY][attack.posX].currentPiece.pieceT);
 //                                System.out.println(i + " " + j + "..." + bestMove + " " + depth + "..." + attack.posY  +  " " + attack.posX);
-//                                dispBoard(game);
+                                if(depth == 1)
+                                    System.out.println("\t" + tempVal);
+
+//                                    dispBoard(game);
                                 if(tempVal < bestMove)
                                     bestMove = tempVal;
                                 game[i][j] = tempCellStart;
                                 game[attack.posY][attack.posX] = tempCell;
+                                chessPlay.calculateAttacks(game, currentTurn);
                                 beta = Math.min(beta, bestMove);
 //                                dispBoard(game);
                                 if(beta <= alpha)
@@ -353,25 +362,10 @@ g = 0.0;
         double value = 0.0;
         for(int i = 0; i < game.length; i++) {
             for(int j = 0; j < game.length; j++) {
-//                if(game[i][j].currentPiece != null)
-//                    System.out.print("" + game[i][j].currentPiece.pieceT.toString().charAt(0) + game[i][j].getPieceValue() + "\t");
-//                else System.out.print("____\t");
                 value += game[i][j].getPieceValue();
             }
-//            System.out.println();
         }
-//                System.out.println("Value: " + value);
-//
-//                    System.out.println();
-//            System.out.println();
-
-//        System.out.println("Evaluated value: " + value + "\n");
-//        if(value < 0.0) {
-//            System.out.println("_________________________________________________________________________________________________________________________________________");
-//            System.out.println("_________________________________________________________________________________________________________________________________________");
-//            System.out.println("_________________________________________________________________________________________________________________________________________");
-//            System.out.println("_________________________________________________________________________________________________________________________________________");
-//        }
+//        dispBoard(game);
         return value;
     }
     
@@ -384,18 +378,7 @@ g = 0.0;
             }
             System.out.println();
         }
-//                System.out.println("Value: " + value);
-//
-                    System.out.println();
-//            System.out.println();
-
-//        System.out.println("Evaluated value: " + value + "\n");
-//        if(value < 0.0) {
-//            System.out.println("_________________________________________________________________________________________________________________________________________");
-//            System.out.println("_________________________________________________________________________________________________________________________________________");
-//            System.out.println("_________________________________________________________________________________________________________________________________________");
-//            System.out.println("_________________________________________________________________________________________________________________________________________");
-//        }
+        System.out.println();
     }
     
 }
